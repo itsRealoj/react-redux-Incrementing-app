@@ -1,14 +1,62 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import ReactDom from 'react-dom';
+import { createStore } from 'redux'
+import { Provider, useSelector } from 'react-redux'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+function reducer(state, action) {
+  switch (action.type) {
+    case 'INCREMENT_COUNT':
+      return {
+        ...state,
+        count: state.count + 2
+      }
+      
+      break;
+  
+    default:
+      break;
+  }
+  return state;
+};
+
+const INITIAL_STATE = {
+  count: 0
+}
+
+const store = createStore(reducer, INITIAL_STATE)
+
+function App() {
+  return (
+    <Provider>
+        <Counter/>
+    </Provider>
+  );
+};
+
+function Counter() {
+  const count = useSelector(state => 
+    state.count)
+
+    function incrementCount() {
+      dispatch({
+        type: 'INCREMENT_COUNT'
+      })
+    }
+
+    function decrementCount() {
+      type: 'DECREMENT_COUNT'
+    }    
+  
+  return (
+    <>
+    <h2>Counter</h2>
+    <h2>+</h2>
+    <h2>-</h2>
+    </>
+  )
+}
+
+ReactDOM.render(<App />,
+document.getElementById('root')
 );
 
-serviceWorker.unregister();
