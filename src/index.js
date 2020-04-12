@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDom from 'react-dom';
-import { createStore } from 'redux'
+import { createStore } from 'redux';
+import ReactDOM from 'react-dom';
 import { Provider, useSelector } from 'react-redux'
 
 function reducer(state, action) {
@@ -10,13 +10,15 @@ function reducer(state, action) {
         ...state,
         count: state.count + 2
       }
+      case 'DECREMENT_COUNT':
+        return {
+          ...state,
+          count: state.count - 1
+        }
       
-      break;
-  
     default:
-      break;
+        return state;
   }
-  return state;
 };
 
 const INITIAL_STATE = {
@@ -49,9 +51,11 @@ function Counter() {
   
   return (
     <>
-    <h2>Counter</h2>
-    <h2>+</h2>
-    <h2>-</h2>
+    <h2>Counter: {count}</h2>
+    <button onClick={incrementCount}>+</button>
+    <button onClick={decrementCount}>-</button>
+
+
     </>
   )
 }
