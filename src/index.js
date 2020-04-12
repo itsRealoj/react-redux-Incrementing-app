@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStore } from 'redux';
 import ReactDOM from 'react-dom';
-import { Provider, useSelector } from 'react-redux'
+import { Provider, useSelector, useDispatch } from 'react-redux'
 
 function reducer(state, action) {
   switch (action.type) {
@@ -29,8 +29,10 @@ const store = createStore(reducer, INITIAL_STATE)
 
 function App() {
   return (
-    <Provider>
+    <Provider store={store}>
+      <div className="App">
         <Counter/>
+      </div>
     </Provider>
   );
 };
@@ -38,6 +40,7 @@ function App() {
 function Counter() {
   const count = useSelector(state => 
     state.count)
+  const dispatch = useDispatch()
 
     function incrementCount() {
       dispatch({
@@ -46,7 +49,9 @@ function Counter() {
     }
 
     function decrementCount() {
-      type: 'DECREMENT_COUNT'
+      dispatch({
+        type: 'DECREMENT_COUNT'
+      })
     }    
   
   return (
